@@ -1,0 +1,43 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create Slider</h4>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Photo">Select Images:</label>
+                        <input asp-for="Photo" class="form-control" accept="image/*">
+                        <span class="text-danger" asp-validation-for="Photo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Titel">Crate Product</label>
+                        <input asp-for="@Model.Titel" class="form-control" placeholder="Titel">
+                        <span class="text-danger" asp-validation-for="@Model.Titel"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TitelButton">Description</label>
+                        <input asp-for="TitelButton" class="form-control" placeholder="TitelButton">
+                        <span class="text-danger" asp-validation-for="TitelButton"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Description">Price</label>
+                        <input asp-for="@Model.Description" class="form-control" placeholder="Description">
+                        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <a class="btn btn-light" asp-action="Index">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Script
+{
+    <partial name="_ValidationPartial" />
+}
+
