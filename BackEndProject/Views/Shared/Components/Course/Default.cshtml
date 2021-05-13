@@ -4,7 +4,7 @@
     <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="single-course">
             <div class="course-img">
-                <a href="course-details.html">
+                <a asp-controller="Courses" asp-action="Detail" asp-route-id="@crs.Id">
                     <img src="~/img/course/@crs.ImageUrl" alt="course">
                     <div class="course-hover">
                         <i class="fa fa-link"></i>
@@ -12,9 +12,9 @@
                 </a>
             </div>
             <div class="course-content">
-                <h3><a href="course-details.html">@crs.Name</a></h3>
-                <p>@crs.Description</p>
-                <a class="default-btn" href="course-details.html">read more</a>
+                <h3><a asp-controller="Courses" asp-action="Detail" asp-route-id="@crs.Id">@crs.Name</a></h3>
+                <p>@((crs.Description.Length<30)?crs.Description:crs.Description.Substring(0,111))</p>
+                <a class="default-btn" asp-controller="Courses" asp-action="Detail" asp-route-id="@crs.Id">read more</a>
             </div>
         </div>
     </div>

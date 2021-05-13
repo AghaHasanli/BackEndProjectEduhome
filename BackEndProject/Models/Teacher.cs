@@ -14,5 +14,7 @@ namespace BackEndProject.Models
         public string FullName { get; set; }
         [Required, MaxLength(255)]
         public string Position { get; set; }
+        public TeacherDetail TeacherDetail { get; set; }
+        public List<Social> Socials { get; set; }
     }
 }

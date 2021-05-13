@@ -4,14 +4,16 @@ using BackEndProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210512102209_AddEventDetailAndEventSpeakerAndSpeakerTable")]
+    partial class AddEventDetailAndEventSpeakerAndSpeakerTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,29 +221,6 @@ namespace BackEndProject.Migrations
                     b.ToTable("Sliders");
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.Social", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("Socials");
-                });
-
             modelBuilder.Entity("BackEndProject.Models.Speaker", b =>
                 {
                     b.Property<int>("Id")
@@ -288,66 +267,6 @@ namespace BackEndProject.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.TeacherDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AboutMe")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Communication")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Degree")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Design")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Development")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Exprience")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Faculty")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Hobbies")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Innovation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MailMe")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MakeACall")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Skype")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TeamLeader")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherId")
-                        .IsUnique();
-
-                    b.ToTable("TeacherDetails");
-                });
-
             modelBuilder.Entity("BackEndProject.Models.DetailCourse", b =>
                 {
                     b.HasOne("BackEndProject.Models.Course", "Course")
@@ -369,32 +288,14 @@ namespace BackEndProject.Migrations
             modelBuilder.Entity("BackEndProject.Models.EventSpeaker", b =>
                 {
                     b.HasOne("BackEndProject.Models.Event", "Event")
-                        .WithMany("EventSpeakers")
+                        .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BackEndProject.Models.Speaker", "Speaker")
-                        .WithMany("EventSpeakers")
+                        .WithMany()
                         .HasForeignKey("SpeakerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BackEndProject.Models.Social", b =>
-                {
-                    b.HasOne("BackEndProject.Models.Teacher", "Teacher")
-                        .WithMany("Socials")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BackEndProject.Models.TeacherDetail", b =>
-                {
-                    b.HasOne("BackEndProject.Models.Teacher", "Teacher")
-                        .WithOne("TeacherDetail")
-                        .HasForeignKey("BackEndProject.Models.TeacherDetail", "TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

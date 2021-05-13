@@ -28,7 +28,7 @@
             <div class="col-md-8">
                 <div class="courses-details">
                     <div class="courses-details-img">
-                        <img src="img/course/@Model.ImageUrl" alt="courses-details">
+                        <img src="~/img/course/@Model.ImageUrl" alt="courses-details">
                     </div>
                     <div class="course-details-content">
                         <h2>@Model.Name</h2>
@@ -58,7 +58,7 @@
                                 <li>students <span>@Model.DetailCourse.Students</span></li>
                                 <li>assesments <span>@Model.DetailCourse.Assesment</span></li>
                             </ul>
-                            @Html.Raw(Model.DetailCourse.CourseFee)
+                            <h3 class="red">course fee $@Model.DetailCourse.Price</h3>
                         </div>
                     </div>
                     <div class="reply-area">
@@ -113,7 +113,7 @@
                     </div>
                     <div class="single-blog-widget mb-50">
                         <div class="single-blog-banner">
-                            <a href="blog-details.html" id="blog"><img src="img/blog/blog-img.jpg" alt="blog"></a>
+                            <a href="blog-details.html" id="blog"><img src="~/img/blog/blog-img.jpg" alt="blog"></a>
                             <h2>best<br> eductaion<br> theme</h2>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <div class="single-post mb-30">
                             <div class="single-post-img">
                                 <a href="blog-details.html">
-                                    <img src="img/post/post1.jpg" alt="post">
+                                    <img src="~/img/post/post1.jpg" alt="post">
                                     <div class="blog-hover">
                                         <i class="fa fa-link"></i>
                                     </div>
@@ -136,7 +136,7 @@
                         <div class="single-post mb-30">
                             <div class="single-post-img">
                                 <a href="blog-details.html">
-                                    <img src="img/post/post2.jpg" alt="post">
+                                    <img src="~/img/post/post2.jpg" alt="post">
                                     <div class="blog-hover">
                                         <i class="fa fa-link"></i>
                                     </div>
@@ -150,7 +150,7 @@
                         <div class="single-post">
                             <div class="single-post-img">
                                 <a href="blog-details.html">
-                                    <img src="img/post/post3.jpg" alt="post">
+                                    <img src="~/img/post/post3.jpg" alt="post">
                                     <div class="blog-hover">
                                         <i class="fa fa-link"></i>
                                     </div>

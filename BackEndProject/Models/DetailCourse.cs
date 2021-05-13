@@ -22,6 +22,6 @@ namespace BackEndProject.Models
         public string Language { get; set; }
         public string Students { get; set; }
         public string Assesment { get; set; }
-        public string CourseFee { get; set; }
+        public int Price { get; set; }
     }
 }

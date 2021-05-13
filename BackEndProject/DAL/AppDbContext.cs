@@ -14,7 +14,12 @@ namespace BackEndProject.DAL
         public DbSet<Bio> Bio { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<DetailCourse> DetailCourses { get; set; }
+        public DbSet<EventDetail> EventDetails { get; set; }
+        public DbSet<Speaker> Speakers { get; set; }
+        public DbSet<EventSpeaker> EventSpeakers { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }    
+        public DbSet<TeacherDetail> TeacherDetails { get; set; }
+        public DbSet<Social> Socials { get; set; }
+        public DbSet<DetailCourse> DetailCourses { get; set; } 
     }
 }

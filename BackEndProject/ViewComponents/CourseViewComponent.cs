@@ -17,8 +17,8 @@ namespace BackEndProject.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(int take)
         {
-            List<Course> model = _context.Courses.Take(take).ToList();
-            return View(await Task.FromResult(model));
+            List<Course> course = _context.Courses.Take(take).ToList();
+            return View(await Task.FromResult(course));
         }
     }
 }

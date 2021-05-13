@@ -12,17 +12,17 @@
                     </div>
                 </a>
                 <div class="event-date">
-                    @Html.Raw(ev.Date)
+                    <h3>@ev.EventTime.ToString("dd")  <span>@ev.EventTime.ToString("MMM")</span></h3>
                 </div>
             </div>
             <div class="event-content text-left">
                 <h4><a href="event-details.html">@ev.Lesson</a></h4>
                 <ul>
-                    <li><span>time:</span>@ev.Time</li>
+                    <li><span>time:</span>@ev.EventTime.ToString("t")-@ev.EventEndTime.ToString("t")</li>
                     <li><span>venue</span>@ev.Venue</li>
                 </ul>
                 <div class="event-content-right">
-                    <a class="default-btn" href="event-details.html">join now</a>
+                    <a class="default-btn" asp-controller="Course" asp-action="Detail" asp-route-id="">join now</a>
                 </div>
             </div>
         </div>

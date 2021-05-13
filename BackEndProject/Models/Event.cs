@@ -12,11 +12,11 @@ namespace BackEndProject.Models
         public string ImageUrl { get; set; }
         [Required,MaxLength(255)]
         public string Lesson { get; set; }
-        [Required]
-        public string Date { get; set; }
-        [Required]
-        public string Time { get; set; }
+        public DateTime EventTime { get; set; }
+        public DateTime EventEndTime { get; set; }
         [Required,MaxLength(255)]
         public string Venue { get; set; }
+        public EventDetail EventDetail { get; set; }
+        public ICollection<EventSpeaker> EventSpeakers { get; set; }
     }
 }
