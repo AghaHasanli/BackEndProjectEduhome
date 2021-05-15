@@ -1,0 +1,112 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Course</h4>
+                <a asp-controller="CourseAdmin" asp-action="Create" class="btn btn-success">Create</a>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Image
+                                </th>
+                                <th>
+                                    Course
+                                </th>
+                                <th>
+                                    Starts
+                                </th>
+                                <th>
+                                    Language
+                                </th>
+                                <th>
+                                    Students
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    IDeleted
+                                </th>
+                                <th>
+                                    Settings
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Course cr in Model)
+                            {
+
+                            <tr>
+                                <td>
+                                    <img src="~/img/course/@cr.ImageUrl" style="width:120px; height:115px; object-fit:cover" />
+                                </td>
+                                <td>
+                                    @cr.Name
+                                </td>
+                                <td>
+                                    @cr.DetailCourse.Starts
+                                </td>
+                                <td>
+                                    @cr.DetailCourse.Language
+                                </td>
+                                <td>
+                                    @cr.DetailCourse.Students
+                                </td>
+                                <td>
+                                    @cr.DetailCourse.Price
+                                </td>
+                                @if (cr.IsDeleted)
+                                {
+                                    <td class="text-success">
+                                        Active
+                                    </td>
+                                }
+                                else
+                                {
+
+                                    <td class="text-danger">
+                                        Deactive
+                                    </td>
+
+                                }
+                                <td>
+                                    <a class="btn btn-info" asp-action="Detail" asp-route-id="@cr.Id">
+                                        <i class="mdi mdi-account-card-details"></i>
+                                    </a>
+                                    <a class="btn btn-warning" asp-action="Update" asp-route-id="@cr.Id">
+
+                                        <i class="mdi mdi-table-edit"></i>
+                                    </a>
+                                    @if (cr.IsDeleted)
+                                    {
+                                        <a class="btn btn-danger" asp-action="Activity" asp-route-id="@cr.Id">
+                                            <i class="mdi mdi-delete-sweep"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-success" asp-action="Activity" asp-route-id="@cr.Id">
+                                            <i class="mdi mdi-delete-sweep"></i>
+                                        </a>
+                                    }
+
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -27,5 +27,6 @@ namespace BackEndProject.Contollers
             if (course == null) return NotFound();
             return View(course);
         }
+        
     }
 }

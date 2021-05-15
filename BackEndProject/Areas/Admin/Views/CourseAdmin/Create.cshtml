@@ -1,0 +1,123 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create Course</h4>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="@Model.Photo">Select Images:</label>
+                        <input asp-for="@Model.Photo" class="form-control" accept="image/*">
+                        <span class="text-danger" asp-validation-for="@Model.Photo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Name">Crate Product</label>
+                        <input asp-for="@Model.Name" class="form-control" placeholder="Name">
+                        <span class="text-danger" asp-validation-for="@Model.Name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Description">Description</label>
+                        <input asp-for="@Model.Description" class="form-control" placeholder="Description">
+                        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">
+                        Click for Detail
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.AboutCourse">about course</label>
+                                        <input asp-for="@Model.DetailCourse.AboutCourse" class="form-control" placeholder="about course">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.AboutCourse"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.HowToApply">how to apply</label>
+                                        <input asp-for="@Model.DetailCourse.HowToApply" class="form-control" placeholder="how to apply">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.HowToApply"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Certifcation">certification</label>
+                                        <input asp-for="@Model.DetailCourse.Certifcation" class="form-control" placeholder="certification">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.Certifcation"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Starts">starts </label>
+                                        <input asp-for="@Model.DetailCourse.Starts" id="editor" class="form-control" placeholder="starts ">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Duration">duration</label>
+                                        <input asp-for="@Model.DetailCourse.Duration" class="form-control" placeholder="duration">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.Duration"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.ClassDuration">class duration</label>
+                                        <input asp-for="@Model.DetailCourse.ClassDuration" class="form-control" placeholder="class duration">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.ClassDuration"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.SkilLevel">skill level</label>
+                                        <input asp-for="@Model.DetailCourse.SkilLevel" class="form-control" placeholder="skill level">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.SkilLevel"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Language">language</label>
+                                        <input asp-for="@Model.DetailCourse.Language" class="form-control" placeholder="language">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.Language"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Students">students </label>
+                                        <input asp-for="@Model.DetailCourse.Students" class="form-control" placeholder="students ">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.Students"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Assesment">assesments</label>
+                                        <input asp-for="@Model.DetailCourse.Assesment" class="form-control" placeholder="assesments">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.Assesment"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DetailCourse.Price">course fee $</label>
+                                        <input asp-for="@Model.DetailCourse.Price" class="form-control" placeholder="course fee $">
+                                        <span class="text-danger" asp-validation-for="@Model.DetailCourse.Price"></span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <a class="btn btn-light" asp-action="Index">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Script
+{
+    <partial name="_ValidationPartial" />
+    
+}
+

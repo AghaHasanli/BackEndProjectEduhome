@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210512161237_AddTeacherDetailAndSocialTable")]
-    partial class AddTeacherDetailAndSocialTable
+    [Migration("20210513201633_AddTableTeacherDetailAndSocialAndTeacherSocialRelation")]
+    partial class AddTableTeacherDetailAndSocialAndTeacherSocialRelation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,12 +234,7 @@ namespace BackEndProject.Migrations
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TeacherId");
 
                     b.ToTable("Socials");
                 });
@@ -350,6 +345,28 @@ namespace BackEndProject.Migrations
                     b.ToTable("TeacherDetails");
                 });
 
+            modelBuilder.Entity("BackEndProject.Models.TeacherSocial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SocialId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SocialId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("TeacherSocial");
+                });
+
             modelBuilder.Entity("BackEndProject.Models.DetailCourse", b =>
                 {
                     b.HasOne("BackEndProject.Models.Course", "Course")
@@ -383,20 +400,26 @@ namespace BackEndProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BackEndProject.Models.Social", b =>
-                {
-                    b.HasOne("BackEndProject.Models.Teacher", "Teacher")
-                        .WithMany("Socials")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BackEndProject.Models.TeacherDetail", b =>
                 {
                     b.HasOne("BackEndProject.Models.Teacher", "Teacher")
                         .WithOne("TeacherDetail")
                         .HasForeignKey("BackEndProject.Models.TeacherDetail", "TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BackEndProject.Models.TeacherSocial", b =>
+                {
+                    b.HasOne("BackEndProject.Models.Social", "Social")
+                        .WithMany("TeacherSocials")
+                        .HasForeignKey("SocialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackEndProject.Models.Teacher", "Teacher")
+                        .WithMany("TeacherSocials")
+                        .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
