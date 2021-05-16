@@ -115,9 +115,17 @@
         </div>
     </div>
 </div>
-@section Script
-{
+@section Script{
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
     <partial name="_ValidationPartial" />
-    
+
 }
+
 

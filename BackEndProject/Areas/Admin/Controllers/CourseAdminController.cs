@@ -1,5 +1,6 @@
 ﻿using BackEndProject.DAL;
 using BackEndProject.Extentions;
+using BackEndProject.Helpers;
 using BackEndProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -81,8 +82,13 @@ namespace BackEndProject.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(Course course)
+        public async Task<IActionResult> Update(int? id,Course course)
         {
+            if (id == null) return NotFound();
+            Course CourseServer = _context.Courses.Include(c => c.DetailCourse).FirstOrDefault(c => c.Id == id);
+            if (CourseServer == null) return NotFound();
+            string path = Path.Combine("img", "course");
+            Helper.DeletedFile(_env.WebRootPath, path, CourseServer.ImageUrl);
             if (!ModelState.IsValid) return View();
 
             if (!course.Photo.IsValidType("image/"))
@@ -94,9 +100,9 @@ namespace BackEndProject.Areas.Admin.Controllers
                 ModelState.AddModelError("Photo", "Please Choose the right size");
             }
             string folder = Path.Combine("img", "course");
-            course.ImageUrl = await course.Photo.SaveFileAsync(_env.WebRootPath, folder);
-            course.DetailCourse.Course = course;
-            course.DetailCourse.CourseId = course.Id;
+            CourseServer.ImageUrl = await course.Photo.SaveFileAsync(_env.WebRootPath, folder);
+            course = CourseServer;
+            course.DetailCourse = CourseServer.DetailCourse;
             _context.UpdateRange(course, course.   DetailCourse);
             await _context.SaveChangesAsync();
 
