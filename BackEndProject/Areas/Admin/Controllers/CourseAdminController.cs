@@ -63,14 +63,14 @@ namespace BackEndProject.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Activity(int? id)
+        public  async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
             Course course =_context.Courses.Include(c => c.DetailCourse).FirstOrDefault(c => c.Id == id);
             if (course == null) return NotFound();
             course.IsDeleted = course.IsDeleted == true ? false : true;
             _context.Courses.Update(course);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Update(int? id)

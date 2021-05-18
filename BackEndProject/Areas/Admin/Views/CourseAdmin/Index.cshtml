@@ -87,13 +87,13 @@
                                     </a>
                                     @if (cr.IsDeleted)
                                     {
-                                        <a class="btn btn-danger" asp-action="Activity" asp-route-id="@cr.Id">
+                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@cr.Id">
                                             <i class="mdi mdi-delete-sweep"></i>
                                         </a>
                                     }
                                     else
                                     {
-                                        <a class="btn btn-success" asp-action="Activity" asp-route-id="@cr.Id">
+                                        <a class="btn btn-success" asp-action="Delete" asp-route-id="@cr.Id">
                                             <i class="mdi mdi-delete-sweep"></i>
                                         </a>
                                     }

@@ -336,3 +336,4 @@ D:\DISC-C-Files\Desktop\BackEndProjectEduhome\BackEndProject\obj\Debug\netcoreap
 D:\DISC-C-Files\Desktop\BackEndProjectEduhome\BackEndProject\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\CourseAdmin\Update.cshtml.g.cs
 D:\DISC-C-Files\Desktop\BackEndProjectEduhome\BackEndProject\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\EventAdmin\Index.cshtml.g.cs
 D:\DISC-C-Files\Desktop\BackEndProjectEduhome\BackEndProject\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\EventAdmin\Create.cshtml.g.cs
+D:\DISC-C-Files\Desktop\BackEndProjectEduhome\BackEndProject\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\EventAdmin\Detail.cshtml.g.cs
