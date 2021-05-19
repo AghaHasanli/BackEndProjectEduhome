@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20210512161237_AddTeacherDetailAndSocialTable.Designer.cs" />
     <Compile Remove="Migrations\20210514125657_ChangeDetailCourseDateTimeColumn.cs" />
     <Compile Remove="Migrations\20210514125657_ChangeDetailCourseDateTimeColumn.Designer.cs" />
+    <Compile Remove="Migrations\20210518210756_ChangeTeacherTable.cs" />
+    <Compile Remove="Migrations\20210518210756_ChangeTeacherTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

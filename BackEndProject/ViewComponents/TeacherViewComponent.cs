@@ -18,7 +18,7 @@ namespace BackEndProject.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(int take)
         {
-            List<Teacher> model = _context.Teachers.Include(t=>t.TeacherSocials).ThenInclude(tr=>tr.Social).Take(take).ToList();
+            List<Teacher> model = _context.Teachers.Include(t=>t.Socials).Take(take).ToList();
             return View(await Task.FromResult(model));
         }
     }

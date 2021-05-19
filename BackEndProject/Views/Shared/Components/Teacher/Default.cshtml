@@ -10,9 +10,9 @@
                 <h2><a  asp-controller="Teacher" asp-action="Detail" asp-route-id="@tc.Id">@tc.FullName</a></h2>
                 <h4>@tc.Position</h4>
                 <ul>
-                    @foreach (TeacherSocial td in tc.TeacherSocials)
+                    @foreach (Social td in tc.Socials)
                     {
-                        <li><a  href="@td.Social.Link"><i class="@td.Social.Icon"></i></a></li>
+                        <li><a  href="@td.Link"><i class="@td.Icon"></i></a></li>
 
                     }
                 </ul>

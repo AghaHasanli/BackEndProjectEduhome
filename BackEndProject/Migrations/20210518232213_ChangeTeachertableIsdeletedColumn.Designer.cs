@@ -4,14 +4,16 @@ using BackEndProject.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210518232213_ChangeTeachertableIsdeletedColumn")]
+    partial class ChangeTeachertableIsdeletedColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,17 +319,17 @@ namespace BackEndProject.Migrations
                     b.Property<string>("AboutMe")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Communication")
-                        .HasColumnType("int");
+                    b.Property<string>("Communication")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Degree")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Design")
-                        .HasColumnType("int");
+                    b.Property<string>("Design")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Development")
-                        .HasColumnType("int");
+                    b.Property<string>("Development")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Exprience")
                         .HasColumnType("nvarchar(max)");
@@ -338,11 +340,11 @@ namespace BackEndProject.Migrations
                     b.Property<string>("Hobbies")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Innovation")
-                        .HasColumnType("int");
+                    b.Property<string>("Innovation")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Language")
-                        .HasColumnType("int");
+                    b.Property<string>("Language")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MailMe")
                         .HasColumnType("nvarchar(max)");
@@ -356,8 +358,8 @@ namespace BackEndProject.Migrations
                     b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamLeader")
-                        .HasColumnType("int");
+                    b.Property<string>("TeamLeader")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

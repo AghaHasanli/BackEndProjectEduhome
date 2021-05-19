@@ -53,9 +53,9 @@
                     <p><span>make a call : </span>@Model.TeacherDetail.MakeACall</p>
                     <p><span>skype : </span>@Model.TeacherDetail.Skype</p>
                     <ul>
-                        @foreach (TeacherSocial ts in Model.TeacherSocials)
+                        @foreach (Social s in Model.Socials)
                         {
-                            <li><a href="@ts.Social.Link"><i class="@ts.Social.Icon"></i></a></li>
+                            <li><a href="@s.Link"><i class="@s.Icon"></i></a></li>
                         }
 
                     </ul>
@@ -71,8 +71,8 @@
                             <div class="skill-bar-item">
                                 <span>language</span>
                                 <div class="progress">
-                                    <div data-wow-delay="1.2s" data-wow-duration="1.5s" style="width: @Model.TeacherDetail.Language; visibility: visible; animation-duration: 1.5s; animation-delay: 1.2s; animation-name: fadeInLeft;" data-progress="50%" class="progress-bar wow fadeInLeft">
-                                        <span class="text-top">@Model.TeacherDetail.Language</span>
+                                    <div data-wow-delay="1.2s" data-wow-duration="1.5s" style="width: @Model; visibility: visible; animation-duration: 1.5s; animation-delay: 1.2s; animation-name: fadeInLeft;" data-progress="50%" class="progress-bar wow fadeInLeft">
+                                        <span class="text-top">%</span>
                                     </div>
                                  </div>
                             </div>
