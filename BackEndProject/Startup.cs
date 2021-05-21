@@ -1,7 +1,9 @@
 using BackEndProject.DAL;
+using BackEndProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,21 @@ namespace BackEndProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddIdentity<AppUser, IdentityRole>(identityOptions =>
+            {
+                identityOptions.Password.RequiredLength = 8;
+                identityOptions.Password.RequireDigit = true;
+                identityOptions.Password.RequireLowercase = true;
+                identityOptions.Password.RequireUppercase = true;
+                identityOptions.Password.RequireNonAlphanumeric = true;
+
+                identityOptions.User.RequireUniqueEmail = true;
+                identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                identityOptions.Lockout.MaxFailedAccessAttempts = 3;
+                identityOptions.Lockout.AllowedForNewUsers = true;
+
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(_config["ConnectionStrings:Default"]);
@@ -38,10 +55,11 @@ namespace BackEndProject
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //app.UseSession();
             app.UseRouting();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
