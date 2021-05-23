@@ -63,12 +63,21 @@ namespace BackEndProject.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public  async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
-            Course course =_context.Courses.Include(c => c.DetailCourse).FirstOrDefault(c => c.Id == id);
+            Course course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == id);
             if (course == null) return NotFound();
-            course.IsDeleted = course.IsDeleted == true ? false : true;
+            if (!course.IsDeleted)
+            {
+                course.IsDeleted = true;
+
+            }
+            else
+            {
+                course.IsDeleted = false;
+
+            }
             _context.Courses.Update(course);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -82,28 +91,42 @@ namespace BackEndProject.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id,Course course)
+        public async Task<IActionResult> Update(int? id, Course course)
         {
             if (id == null) return NotFound();
             Course CourseServer = _context.Courses.Include(c => c.DetailCourse).FirstOrDefault(c => c.Id == id);
             if (CourseServer == null) return NotFound();
-            string path = Path.Combine("img", "course");
-            Helper.DeletedFile(_env.WebRootPath, path, CourseServer.ImageUrl);
-            if (!ModelState.IsValid) return View();
 
+
+            if (!ModelState.IsValid) return View(CourseServer);
             if (!course.Photo.IsValidType("image/"))
             {
-                ModelState.AddModelError("Photo", "Please select photo");
+                ModelState.AddModelError("Photo", "Please select image Type");
+                return View(CourseServer);
             }
             if (!course.Photo.IsValidSize(300))
             {
-                ModelState.AddModelError("Photo", "Please Choose the right size");
+                ModelState.AddModelError("Photo", "Please select image Size less than kb");
+                return View(CourseServer);
             }
-            string folder = Path.Combine("img", "course");
-            CourseServer.ImageUrl = await course.Photo.SaveFileAsync(_env.WebRootPath, folder);
-            course = CourseServer;
-            course.DetailCourse = CourseServer.DetailCourse;
-            _context.UpdateRange(course, course.   DetailCourse);
+            string path = Path.Combine("img", "course");
+            Helper.DeletedFile(_env.WebRootPath, path, CourseServer.ImageUrl);
+            path = Path.Combine("img", "course");
+            CourseServer.ImageUrl = await course.Photo.SaveFileAsync(_env.WebRootPath, path);
+            CourseServer.Name = course.Name;
+            CourseServer.Description = course.Description;
+            CourseServer.DetailCourse.AboutCourse = course.DetailCourse.AboutCourse;
+            CourseServer.DetailCourse.HowToApply = course.DetailCourse.HowToApply;
+            CourseServer.DetailCourse.Certifcation  = course.DetailCourse.Certifcation;
+            CourseServer.DetailCourse.Starts = course.DetailCourse.Starts;
+            CourseServer.DetailCourse.Duration = course.DetailCourse.Duration;
+            CourseServer.DetailCourse.ClassDuration = course.DetailCourse.ClassDuration;
+            CourseServer.DetailCourse.SkilLevel = course.DetailCourse.SkilLevel;
+            CourseServer.DetailCourse.Language = course.DetailCourse.Language;
+            CourseServer.DetailCourse.Students = course.DetailCourse.Students;
+            CourseServer.DetailCourse.Assesment = course.DetailCourse.Assesment;
+            CourseServer.DetailCourse.Price = course.DetailCourse.Price;
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

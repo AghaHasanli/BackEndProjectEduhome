@@ -15,6 +15,10 @@
     <Compile Remove="Migrations\20210514125657_ChangeDetailCourseDateTimeColumn.Designer.cs" />
     <Compile Remove="Migrations\20210518210756_ChangeTeacherTable.cs" />
     <Compile Remove="Migrations\20210518210756_ChangeTeacherTable.Designer.cs" />
+    <Compile Remove="Migrations\20210522075803_AddIsDeletedUserColumn.cs" />
+    <Compile Remove="Migrations\20210522075803_AddIsDeletedUserColumn.Designer.cs" />
+    <Compile Remove="Migrations\20210522080335_AddIsDeletedUserColumn.cs" />
+    <Compile Remove="Migrations\20210522080335_AddIsDeletedUserColumn.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

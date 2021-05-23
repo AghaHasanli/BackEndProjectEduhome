@@ -1,0 +1,107 @@
+﻿@model EventVM
+@{
+    ViewData["Title"] = "Update";
+}
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card ">
+            <div class="card-body">
+                <h4 class="card-title">Event Edit</h4>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Event.Photo">Select Image:</label>
+                        <input asp-for="Event.Photo" class="form-control" accept="image/*">
+                        <span class="text-danger" asp-validation-for="Event.Photo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Event</label>
+                        <input asp-for="Event.Lesson" class="form-control" placeholder="Lesson">
+                        <span class="text-danger" asp-validation-for="Event.Lesson"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Event.EventTime"></label>
+                        <input asp-for="Event.EventTime" class="form-control" placeholder="EventTime">
+                        <span class="text-danger" asp-validation-for="Event.EventTime"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Event.EventEndTime"></label>
+                        <input asp-for="Event.EventEndTime" class="form-control" placeholder="EventEndTime">
+                        <span class="text-danger" asp-validation-for="Event.EventEndTime"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Event.Venue"></label>
+                        <input asp-for="Event.Venue" class="form-control" placeholder="City">
+                        <span class="text-danger" asp-validation-for="Event.Venue"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EventDetail.ExactLocation"></label>
+                        <input asp-for="EventDetail.ExactLocation" class="form-control" placeholder="ExactLocation">
+                        <span class="text-danger" asp-validation-for="EventDetail.ExactLocation"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EventDetail.Description"></label>
+                        <textarea asp-for="EventDetail.Description" class="form-control" id="editor" placeholder="Description"></textarea>
+                        <span class="text-danger" asp-validation-for="EventDetail.Description"></span>
+                    </div>
+                    <div class="form-group " id="Speakers">
+                        <label for="Speakers">Select Speakers</label>
+                        <select class="form-control" asp-for="Speakers" id="SpeakerId">
+                            @{
+                                bool isExist = true;
+
+                                foreach (Speaker dbs in ViewBag.Speakers)
+                                {
+                                    foreach (Speaker ins in Model.SpekarsModels)
+                                    {
+
+
+                                        if (dbs.Id == ins.Id)
+                                        {
+                                            isExist = true;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            isExist = false;
+
+                                        }
+
+                                    }
+                                    if (isExist)
+                                    {
+                                        <option selected value="@dbs.Id">@dbs.Fullname</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value="@dbs.Id">@dbs.Fullname</option>
+
+                                    }
+                                }
+                            }
+
+
+
+
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <a class="btn btn-light" asp-action="Index">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Script{
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <partial name="_ValidationPartial" />
+
+}

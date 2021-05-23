@@ -1,6 +1,8 @@
 ﻿using BackEndProject.DAL;
+using BackEndProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,11 @@ namespace BackEndProject.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-
+            List<Blog> blogs = _context.Blogs.Include(b => b.BlogDetail).ToList();
+            return View(blogs);
+        }
+        public IActionResult Create()
+        {
             return View();
         }
     }

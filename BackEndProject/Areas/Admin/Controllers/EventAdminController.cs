@@ -29,72 +29,157 @@ namespace BackEndProject.Areas.Admin.Controllers
             List<Event> Event = _context.Events.Include(e => e.EventDetail).Include(e => e.EventSpeakers).ThenInclude(e => e.Speaker).ToList();
             return View(Event);
         }
-        //public IActionResult Create()
-        //{
-        //    ViewBag.Speakers = _context.Speakers.ToList();
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(EventVM eventVM)
-        //{
-        //    ViewBag.Speakers = _context.Speakers.ToList();
-
-
-        //    if (!ModelState.IsValid) return View();
-
-        //    {
-        //        ModelState.AddModelError("", "Please Select Speakers");
-        //        return View();
-        //    }
-        //    if (!eventVM.Event.Photo.IsValidType("image/"))
-        //    {
-        //        ModelState.AddModelError("Photo", "Please select image Type");
-        //    }
-        //    if (!eventVM.Event.Photo.IsValidSize(300))
-        //    {
-        //        ModelState.AddModelError("Photo", "Please select image Size less than kb");
-        //    }
-        //    string path = Path.Combine("img", "event");
-        //    eventVM.Event.ImageUrl = await eventVM.Event.Photo.SaveFileAsync(_env.WebRootPath, path);
-
-        //    Event Event = eventVM.Event;
-        //    EventDetail eventDetail = eventVM.EventDetail;
-
-        //    eventDetail.Event = Event;
-        //    eventDetail.Id = Event.Id;
-
-        //    List<Speaker> speakers = new List<Speaker>();
-        //    foreach (int sp in eventVM.Speakers)
-        //    {
-        //        Speaker speaker = new Speaker { Id = sp };
-        //        speakers.Add(speaker);
-        //    }
-
-        //    List<EventSpeaker> EventSpeaker = new List<EventSpeaker>();
-        //    foreach (EventSpeaker es in EventSpeaker)
-        //    {
-        //        es.Event = Event;
-        //        es.EventId = Event.Id;
-        //        foreach (Speaker s in speakers)
-        //        {
-        //            es.Speaker = s;
-        //            es.SpeakerId = s.Id;
-        //        }
-
-        //    }
-        //    await _context.AddRangeAsync(Event, eventDetail, speakers, EventSpeaker);
-        //    await _context.SaveChangesAsync();
-
-
-        //    return RedirectToAction(nameof(Index));
-        //}
         public IActionResult Detail(int? id)
         {
             if (id == null) return NotFound();
-            Event events = _context.Events.Include(e => e.EventDetail).Include(e=>e.EventSpeakers).ThenInclude(es=>es.Speaker).FirstOrDefault(e=>e.Id==id);
-            if (events == null) return NotFound();
-            return View(events);
+            Event Event = _context.Events.Include(e => e.EventDetail).Include(e => e.EventSpeakers).ThenInclude(es => es.Speaker).FirstOrDefault(e => e.Id == id);
+            if (Event == null) return NotFound();
+
+            return View(Event);
+        }
+        public IActionResult Create()
+        {
+            ViewBag.Speakers = _context.Speakers.ToList();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EventVM eventVM)
+        {
+            ViewBag.Speakers = _context.Speakers.ToList();
+
+
+            if (!ModelState.IsValid) return View();
+
+            if (eventVM.Event.Photo == null)
+            {
+                ModelState.AddModelError("Event.Photo", "Please select Photo");
+                return View();
+            }
+            if (!eventVM.Event.Photo.IsValidType("image/"))
+            {
+                ModelState.AddModelError("Event.Photo", "Please select image Type");
+                return View();
+            }
+            if (!eventVM.Event.Photo.IsValidSize(300))
+            {
+                ModelState.AddModelError("Event.Photo", "Please select image Size less than kb");
+                return View();
+            }
+            if (eventVM.Speakers == null)
+            {
+                ModelState.AddModelError("Speakers", "Please Select Speakers");
+                return View();
+            }
+            string path = Path.Combine("img", "event");
+            eventVM.Event.ImageUrl = await eventVM.Event.Photo.SaveFileAsync(_env.WebRootPath, path);
+
+            await _context.Events.AddAsync(eventVM.Event);
+            await _context.SaveChangesAsync();
+
+
+            eventVM.EventDetail.EventId = eventVM.Event.Id;
+
+
+
+
+            List<EventSpeaker> eventSpeakers = new List<EventSpeaker>();
+            EventSpeaker eventSpeaker = new EventSpeaker();
+            eventSpeaker.EventId = eventVM.Event.Id;
+            foreach (int sp in eventVM.Speakers)
+            {
+                eventSpeaker.SpeakerId = sp;
+                eventSpeakers.Add(eventSpeaker);
+            }
+
+            eventVM.Event.EventSpeakers = eventSpeakers;
+
+            _context.Update(eventVM.Event);
+
+
+            await _context.EventDetails.AddAsync(eventVM.EventDetail);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Update(int? id)
+        {
+            ViewBag.Speakers = _context.Speakers.ToList();
+            if (id == null) return NotFound();
+            Event DbEvent = _context.Events.Include(e => e.EventDetail).Include(e => e.EventSpeakers).
+                ThenInclude(es => es.Speaker).FirstOrDefault(e => e.Id == id);
+            if (DbEvent == null) return NotFound();
+            List<Speaker> speakers = new List<Speaker>();
+            foreach (EventSpeaker es in DbEvent.EventSpeakers)
+            {
+                speakers.Add(es.Speaker);
+            }
+
+            EventVM eventVM = new EventVM
+            {
+                Event = DbEvent,
+                EventDetail = DbEvent.EventDetail,
+                SpekarsModels = speakers
+
+            };
+            return View(eventVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int? id, EventVM eventVM)
+        {
+            ViewBag.Speakers = _context.Speakers.ToList();
+            if (id == null) return NotFound();
+            Event DbEvent = _context.Events.Include(e => e.EventDetail).Include(e => e.EventSpeakers).
+                ThenInclude(es => es.Speaker).FirstOrDefault(e => e.Id == id);
+            if (!ModelState.IsValid) return View(DbEvent);
+
+            if (eventVM.Event.Photo == null)
+            {
+                ModelState.AddModelError("Event.Photo", "Please select Photo");
+                return View(DbEvent);
+            }
+            if (!eventVM.Event.Photo.IsValidType("image/"))
+            {
+                ModelState.AddModelError("Event.Photo", "Please select image Type");
+                return View(DbEvent);
+            }
+            if (!eventVM.Event.Photo.IsValidSize(300))
+            {
+                ModelState.AddModelError("Event.Photo", "Please select image Size less than kb");
+                return View(DbEvent);
+            }
+            if (eventVM.Speakers == null)
+            {
+                ModelState.AddModelError("Speakers", "Please Select Speakers");
+                return View();
+            }
+            string path = Path.Combine("img", "event");
+            eventVM.Event.ImageUrl = await eventVM.Event.Photo.SaveFileAsync(_env.WebRootPath, path);
+
+            foreach (EventSpeaker s in DbEvent.EventSpeakers)
+            {
+                _context.EventSpeakers.Remove(s);
+            }
+            List<EventSpeaker> eventSpeakers = new List<EventSpeaker>();
+            EventSpeaker eventSpeaker = new EventSpeaker();
+            eventSpeaker.EventId = DbEvent.Id;
+            foreach (int sp in eventVM.Speakers)
+            {
+                eventSpeaker.SpeakerId = sp;
+                eventSpeakers.Add(eventSpeaker);
+            }
+
+            DbEvent = eventVM.Event;
+            DbEvent.EventDetail = eventVM.EventDetail;
+            DbEvent.EventSpeakers = eventSpeakers;
+
+            _context.Update(DbEvent);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

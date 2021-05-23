@@ -21,5 +21,7 @@ namespace BackEndProject.Models
 
         public bool IsDeleted { get; set; }
         public DetailCourse DetailCourse { get; set; }
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

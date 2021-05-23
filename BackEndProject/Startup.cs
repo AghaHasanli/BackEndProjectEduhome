@@ -1,4 +1,5 @@
 using BackEndProject.DAL;
+using BackEndProject.Helpers;
 using BackEndProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +41,9 @@ namespace BackEndProject
                 identityOptions.Lockout.MaxFailedAccessAttempts = 3;
                 identityOptions.Lockout.AllowedForNewUsers = true;
 
-            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
+            }).AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddErrorDescriber<AzIdentityErrorDescriber>();
 
             services.AddDbContext<AppDbContext>(options =>
             {

@@ -11,5 +11,6 @@ namespace BackEndProject.ViewModels
         public Event Event { get; set; }
         public EventDetail EventDetail { get; set; }
         public List<int> Speakers { get; set; } 
+        public List<Speaker> SpekarsModels { get; set; }
     }
 }
